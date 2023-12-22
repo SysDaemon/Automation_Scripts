@@ -7,6 +7,10 @@
             |
              -> source activate
 
+# Relação de Ambiente <-> Scripts
+      Ambiente              Scripts
+    DBConnector               DBConnector.py
+
 # References
 ## Python Virtual Enviorment
 GeekforGeeks (https://www.geeksforgeeks.org/python-virtual-environment/)
