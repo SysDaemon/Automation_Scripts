@@ -1,25 +1,21 @@
 #!/bin/bash
 
-# Check if the user provided a folder path
-if [ -z "$1" ]; then
-    echo "Usage: $0 <folder_path>"
-    exit 1
+# Set the path to the target folder
+target_folder="/path/to/your/target/folder"
+
+# Set the path to the log file in the Documents folder
+log_file="$HOME/Documents/deletion_log.txt"
+
+# Check if the log file exists, if not, create a new one
+if [ ! -f "$log_file" ]; then
+    touch "$log_file"
 fi
 
-folder_path="$1"
+# Change to the target folder
+cd "$target_folder" || exit
 
-# Check if the folder exists
-if [ ! -d "$folder_path" ]; then
-    echo "Error: Folder does not exist."
-    exit 1
-fi
+# Find and delete files older than 3 days
+find . -type f -mtime +3 -exec rm -rf {} \; -exec echo "Deleted: {}" >> "$log_file" \;
 
-# Delete all files inside the folder
-find "$folder_path" -type f -delete
+echo "Deletion process completed. Check $log_file for details."
 
-# echo "INFO: All files in $folder_path, was successfully deleted."
-
-# Execute the comments below to execute everyday @21h
-
-#crontab -e
-# 0 21 * * * /path/to/your/delete_files.sh /path/to/your/folder
